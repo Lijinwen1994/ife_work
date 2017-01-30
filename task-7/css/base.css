@@ -1,0 +1,42 @@
+@charset "utf-8";
+/* 基本共用 */
+
+li{
+	list-style:none;
+		
+}
+a{
+	text-decoration:none;	
+	color:inherit;
+}
+body{
+	color:#534141;
+}
+.button{
+		
+}
+.beijing-message{
+	display:block;
+}
+.shanghai-message{
+	display:none;
+	
+}
+.guangzhou-message{
+	display:none;
+
+}
+.hongkong-message{
+	display:none;
+}
+.grey-font{/*灰色缩小字体样式*/
+	color:#959595;
+	font-size:14px;	
+	font-family: "宋体";
+}
+.form-grey-font{
+	color:#959595;	
+}
+
+
+

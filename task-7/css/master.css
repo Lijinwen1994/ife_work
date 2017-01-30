@@ -1,0 +1,513 @@
+@charset "utf-8";
+/* 主要内容CSS Document */
+/*最外包裹*/
+#container{
+	font-family:'Microsoft YaHei';	
+	min-width:1280px;
+	margin:0px auto;
+}
+
+
+
+/*banner头部图片区域*/
+#banner{
+	display:flex;
+	display:-webkit-flex;
+	width:100%;
+	background:url(../images/banner.png);
+	background-size:cover;
+	height:665px;
+	align-items:center;
+}
+#banner>div{/*Time of new life，开始体验的外包裹*/
+ 	
+	position:relative;
+	left:150px;
+	color:#FFF;
+	
+}
+#banner p:first-of-type{/*Time of new life*/
+	font-size:60px;	
+	font-family:"Arial";
+}
+#banner p:last-of-type{/*享受新生活*/
+	position:relative;
+	top:-30px;
+}
+
+#banner a{/*开始体验按钮*/
+	display:block;
+	background:#e8504f;	
+	height:60px;
+	width:320px;
+	border-radius:5px;
+	line-height:60px;
+	text-align:center;
+	font-size:28px;
+	
+}
+
+
+
+/*介绍层*/
+#introduction{/*介绍层最外面的包裹 flex布局*/
+	display:flex;
+	display:-webkit-flex;
+	justify-content:space-around;
+	-webkit-justify-content:space-around;
+	flex-direction:row;
+	-webkit-flex-direction:row;
+	height:250px;
+	align-items:center;
+	-webkit-align-items:center;
+}
+#introduction>div{/*介绍层下面4个column*/
+	display:flex;
+	display:-webkit-flex;
+	flex-direction:column;
+	-webkit-flex-direction:column;
+	flex-grow:1;
+	
+}
+#introduction>div>div{/*介绍层下每个column*/
+	text-align:center;
+}
+#introduction>div>div:last-of-type{/*介绍层下层的文字及右边框竖线效果*/
+	margin-top:30px;
+	border-right:1px solid #666;
+	border-top:none;
+	border-buttom:none;
+	border-left:none;
+	height:60px;
+	
+}
+#introduction>div:nth-child(4)>div:last-of-type{/*取消最后面那个div的右竖线*/
+	border:none;
+}
+
+#about-newsWord{/*关于新世界外包裹  传统布局*/
+	
+	text-align:center;
+	height:350px;
+	background-color:#eeeced;
+}
+#about-newsWord img{/*放大的logo 传统布局*/
+	margin-top:70px;
+}
+#about-newsWord p{/*关于新世界，你不知道的事*/
+	font-size:60px;	
+	    font-family: 黑体;
+		color:#999;
+}
+
+
+
+
+/*活动搜索*/
+#activity-search{/*活动搜索外包裹*/
+	background:url(../images/map.png) no-repeat;
+	background-size:cover;
+	height:340px;
+	display:flex;
+	display:-webkit-flex;
+	
+	flex-direction:column;
+	-webkit-flex-direction:column;
+	text-align:center;
+}
+
+#activity-search h2{/*查找新世界城市活动信息*/
+	
+	margin-top:80px;	
+}
+#activity-search>div{/*下拉框的包裹 flex布局*/
+	display:flex;
+	display:-webkit-flex;
+	justify-content:center;
+	-webkit-justify-content:center;
+}
+#activity-search select{/*活动搜索下拉框*/
+	width:280px;
+	height:40px;
+	
+	appearance:none;
+	-ms-appearance:none;
+	-moz-appearance:none;
+	-webkit-appearance:none;
+	background-image:url(../images/mail.png);
+	background-repeat:no-repeat;
+	background-position:97% 50%;
+	padding-left:20px;
+	margin:auto 20px;
+	border:0;
+}
+
+#activity-search a{/*活动搜索按钮*/
+	width:280px;
+	height:40px;
+	display:block;
+	background:#e8504f;
+	line-height:40px;
+	color:#fff;
+	margin:auto 20px;	
+}
+.optionStyle{
+	background:#666;
+}
+
+
+
+/*活动简介（4幅图片）*/
+#activity {/*活动包裹层 flex布局*/
+	display:flex;
+	display:-webkit-flex;
+	justify-content:center;
+	-webkit-justify-content:center;
+	background-color:#eeeced;
+}
+#activity ul{/*活动ul包裹层*/
+	display:flex;
+	display:-webkit-flex;
+	flex-direction:row;
+	-webkit-flex-direction:row;
+	width:90%;
+	justify-content:space-around;
+	-webkit-justify-content:space-around;
+	margin-top:100px;
+	margin-bottom:100px;
+}
+#activity p{/*活动的文字*/
+	text-align:center;	
+	margin-top:5px;
+}
+#activity li p:first-of-type{/*活动名称*/
+	font-weight:bold;
+}
+#activity li p:last-of-type{/*活动简介*/
+	color:#999;	
+	margin-top:-7px;
+}
+#activity li:nth-child(2) p:first-of-type{/*上海活动*/
+	font-size:20px;
+	letter-spacing:30px;
+	text-align:center;padding-left:20px;
+}
+#activity li img{/*活动图片白色外边框*/
+	border:10px solid #FFF;	
+	margin-bottom:-3px;
+}
+#activity span{/*活动图片白色外边框的灰色边框线*/
+	display:block;
+	border:1px solid #CCC;
+		
+}
+
+
+
+/*活动详细介绍*/
+#news-word-img{/*北京新世界外包裹*/
+	width:100%;	
+	overflow:hidden;
+}
+#top-left{/*上左*/
+	display:box;
+	display:-webkit-box;
+	
+	width:66.6%;
+	float:left;
+	height:550px;
+
+	background:url(../images/top-left-0.jpg) 70% 30%;
+	background-size:cover;
+	-webkit-background-size:cover;
+	
+	
+	color:#fff;
+}
+.time-site{/*活动信息包裹层*/
+	text-align:center;
+	width:400px;
+	height:500px;
+	margin:0px auto;
+}
+.time-site p:nth-child(1){/*新世界大字*/
+		font-size:50px;
+		height:50px;
+		margin-bottom:0px;
+		
+		
+}
+.time-site p:nth-child(2){/*TIME*/
+		margin-top:10px;
+		font-size:140px;
+		height:140px;
+}
+.time-site span p{/*活动地点和时间*/
+	color:#fff;
+	font-size:16px !important;
+	line-height:25px;
+}
+.time-site span{border-radius:20px;
+	display:block;
+	height:25px;width:200px;
+	background:#e8504f;	
+	opacity: 0.8;margin:15px auto;
+}
+#top-right{/*新世界上右*/
+	display:flex;
+	display:-webkit-flex;
+	flex-grow:1;
+	-webkit-flex-grow:1;
+	height:560px;
+	flex-direction:column;
+	-webkit-flex-direction:column;
+}
+.message{/*字的包裹*/
+	text-align:center;
+	width:300px;
+	margin:0px auto;
+	height:200px;	
+	margin-top:100px;
+}
+div#control a{/*更多详细*/
+	display:block;
+	line-height:30px;
+	margin:10px auto;
+	width:100px;
+	height:30px;
+	border:1px solid #e8504f;
+	padding:5px 10px;
+	color:#F63;
+}
+div#control{/*切换点和更多详细的包裹*/
+	text-align:center;
+	position:relative;
+	bottom:0px;
+	width:100%;
+	
+}
+div#control ul{/*4个切换点的ul容器*/
+	padding:0;
+	margin:0px auto;
+	height:80px;
+	width:240px;
+	display:flex;
+	display:-webkit-flex;
+	justify-content:space-between;
+	-webkit-justify-content:space-between;
+}
+div#control li:first-of-type{/*为第一个点设置初始的样式，让他看上去是选中状态*/
+	background:#999;
+	border:1px solid #999;
+}
+.message>div p:first-of-type{/*新世界-xx*/
+	font-size:24px;	
+	
+}
+
+div#control li{/*4个切换点*/
+	height:15px;
+	width:15px;
+	border-radius:50%;
+	border:1px solid #666;	
+	float:left;
+	margin:20px;
+	cursor:pointer;
+	
+}
+
+
+
+/*关于我们*/
+section#about-us{/*关于我们外包裹 传统布局*/
+	width:100%;
+	height:520px;
+	margin-top:-10px;
+	
+	
+}
+div.about-us-text{/*左边和中间共用。确定位置*/
+	margin: 180px auto;
+	text-align:center;
+	width:200px;
+	height:250px;
+	font-size:20px;
+	line-height:20px;
+}	
+div.about-us-text a{/*查看更多*/
+display:block;
+	width:170px;
+	height:40px;
+	line-height:40px;
+	margin:10px auto;	
+}
+div.about-us-text p{/*新时代，关于爱生活的我们行距*/
+	line-height:10px;
+}
+div#bottom-left{/*下左*/
+	height:520px;
+	width:33.3%;
+	float:left;
+	background:#e8504f;
+}
+div#bottom-center{/*下中*/
+	width:33.3%;
+	height:520px;
+	float:left;
+}
+div#bottom-right{/*下右，背景图片需要通过jquery切换*/
+	width:33.3%;
+	height:520px;
+	float:left;
+	background:url(../images/bottom-right-0.jpg) no-repeat 50% 30%;
+	background-size:c;
+}
+
+
+
+
+/*加入我们，表单*/
+div#jion{/*成为我们的自愿者包裹*/
+	display:flex;
+	display:-webkit-flex;
+	align-items:center;
+	-webkit-align-items:center;
+	flex-direction:column;
+	-webkit-flex-direction:column;
+	width:100%;	
+	height:300px;
+}
+div#jion p:first-of-type{/*成为我们的志愿者 设置margin-top*/
+	margin-top:110px;	
+	font-size:20px;
+}
+div#_form{/*协议与表单的包裹层 左右结构，*/
+	display:flex;
+	display:-webkit-flex;
+	justify-content:space-around;
+	-webkit-justify-content:space-around;
+	
+	padding:0px 130px; 
+	margin-bottom:120px;
+}
+div#_form>div{/*左 协议包裹层*/
+	width:370px	
+}
+div.protocol {/*协议的统一样式*/
+	margin-bottom:60px;	
+}
+div.protocol span{/* ∨ more
+*/
+	float:right;
+	cursor:pointer;	
+}
+div.protocol p:last-of-type{/*协议的简介*/
+	margin:40px 0px;	
+	font-family:"宋体";
+}
+form{/*表单*/
+	display:flex;
+	display:-webkit-flex;
+	flex-grow:1;
+	-webkit-flex-grow:1;
+	margin-left:70px;	
+
+	flex-direction:column;
+	-webkit-flex-direction:column;
+}
+form input[type="text"]{/*文本框的样式*/
+	border:0;
+	height:40px;
+	width:49%;
+	background:#ededef;
+	text-indent:2em;
+	back
+	
+}
+textarea{/*文本域的样式*/
+	text-indent:2em;
+	border:0;
+	width:100%;
+	background:#ededef;	
+	resize:none;
+}
+form input[type="submit"]{/*提交申请 按钮*/
+	width:98.5%;	
+	height:40px;
+	background:#ededef;
+	border:0;
+	margin:0px auto;
+}
+form *{/*表单各项目的间隔*/
+	margin:10px;
+}
+
+
+
+/*联系我们*/
+#content-us{/*联系我们 外包裹*/
+	width:100%;
+	height:360px;
+	background:#33363f;
+	color:#fff;
+	text-align:center;	
+	display:flex;
+	display:-webkit-flex;
+	flex-direction:column;
+	-webkit-flex-direction:column;
+
+}
+
+#content-us>p:nth-child(1){/*让文本垂直居中*/
+	margin-top:90px;
+}
+
+div#email input[type="text"]{/*邮箱文本框*/
+	width:430px;
+	height:40px;
+	border:0;
+	margin:40px auto;
+	padding:0;
+}
+div#email input[type="button"]{/*提交按钮*/
+	width:80px;
+	height:40px;
+	background:#717179;	
+	color:#fff;
+	border:0;
+	margin:0px;padding:0;
+
+}
+#content-icon{/*图标包裹层 flex布局*/
+	display:flex;
+	display:-webkit-flex;
+	justify-content:space-around;
+	-webkit-justify-content:space-around;
+	width:400px;
+	margin:10px auto;
+}
+#content-icon img{/**/
+	cursor:pointer;	
+}
+#content-us p{
+	margin:3px;
+}
+
+footer{
+	height:60px;
+	background:#30303a;	
+	margin-top:-16px;
+	display:flex !important;
+	display:-webkit-flex !important;
+	justify-content:space-between;
+	-webkit-justify-content:space-between;
+	align-items:center;
+	-webkit-align-items:center;
+	color:#FFF;
+
+}
+footer a,footer p{
+	width:200px;
+	margin-left:100px;
+	
+}
