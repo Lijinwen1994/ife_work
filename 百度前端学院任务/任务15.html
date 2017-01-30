@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<ul id="source">
+	    <li>北京空气质量：<b>90</b></li>
+	    <li>上海空气质量：<b>70</b></li>
+	    <li>天津空气质量：<b>80</b></li>
+	    <li>广州空气质量：<b>50</b></li>
+	    <li>深圳空气质量：<b>40</b></li>
+	    <li>福州空气质量：<b>32</b></li>
+	    <li>成都空气质量：<b>90</b></li>
+	</ul>
+	
+	<button id="sort-btn">排序</button>
+	<ul id="resort"></ul>
+	<script>
+	/*sort二维数组排序，forEach循环数组， match正则匹配字符串*/
+		//读取id为sourse的列表，
+		//并将城市和空气质量加入并返回数组data
+		function getDate(){
+			var data = [];
+			var list = document.getElementById('source');
+			var li = list.getElementsByTagName('li');
+			for(var i=0; i<li.length; i++){
+				var city = li[i].childNodes[0].nodeValue.match(/(\S*?)空气/)[1];
+				var num = parseInt(li[i].getElementsByTagName('b')[0].innerText);
+				data[i] = [[city,num]];	
+			}
+			return data;	
+		}
+		//对data数组进行排序
+		function sortAqiData(){
+			var data = getDate();
+
+			data.sort(function(a1,a2) {
+				return  a2[0][1]-a1[0][1];
+			});
+			console.log(data);
+			return data;
+		}
+		//将排序好的城市及空气质量指数，输出显示到id为resort的列表中
+		function render(){
+			var data = sortAqiData();
+			var textContent = "";
+			var resort = document.getElementById('resort');
+			data.forEach(function(arr){
+				textContent += "<li>"+ arr[0][0] +"空气质量： <b>" + arr[0][1]+"</b></li>";
+			})
+			
+			resort.innerHTML = textContent;
+		}
+		//给di为sort-btn的按钮绑定点击监听事件
+		function butHander(){
+			document.getElementById("sort-btn").onclick = render;
+			
+		}
+		butHander();
+	</script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.tag{
+				padding: 10px;
+				background-color: #98FB98;
+				margin: 10px;
+				border-radius: 5px;
+			}
+			#tag-show{
+				padding: 10px;
+				margin: 10px;
+			}
+			#tag-show>span{
+				transition: all .5s;
+				cursor: pointer;
+			}
+			#tag-show>span:hover:before{
+				content: "删除";
+				width: auto;
+			}
+		</style>
+	</head>
+	<body>
+		<label for="tag">Tag</label><input type="text" name="tag" id="tag" value="" />
+		<div id="tag-show"></div>
+		<label>兴趣
+			<textarea rows="5" cols="25" id="hobby-tag"></textarea>
+		</label>
+		<input type="button" id="hobby-btn" value="确认兴趣"/>
+		<div id="hobby-tag-show"></div>
+		<script>	
+
+
+			//构造函数
+			function addTag(option) {
+				this.tag_text = option.tag_text;//输入框W
+				this.tag_show = option.tag_show;//tag展示
+				this.reg = option.reg;//正则表达式
+				this.max_num = option.tag_maxnum - 1;//tag最大数量
+				this.inputLock = true;
+				this.textArr = [];
+				this.hobby_btn = option.hobby_btn ? option.hobby_btn : undefined;
+//				this.inits();
+			};
+
+			// 使用oninput事件事实获取输入输入的文本信息，
+			// 但有一个bug，中文输入法在选词阶段会触发oninput事件。
+			// 解决办法是，使用compositionstart 和 compositionend事件 跳过选词阶段。
+			addTag.prototype.onInput = function() {
+				alert("aas")
+				var that = this;
+				this.tag_text.addEventListener("compositionstart",function() {
+					that.inputLock = true;
+					console.log("锁")
+				})
+				this.tag_text.addEventListener("compositionend",function() {
+					that.inputLock = false;
+					console.log("开")
+				})
+				this.tag_text.addEventListener("input",function() {
+					console.log("当前：" +　that.inputLock)
+					if(!that.inputLock){
+						if(that.reg.test(this.value)){
+							that.setArr(this.value)
+						}
+					}
+				})
+			}
+			addTag.prototype.setHobby = function() {
+				this.textArr = this.tag_text.value.split(this.reg,10);
+				this.rander();
+			}
+			addTag.prototype.keyEnter = function(event){
+				if(event.keyCode == 13 || event.keyCode == 108) {
+					this.setArr(this.tag_text.value);
+				}
+			}
+			//设置数组，以便渲染
+			addTag.prototype.setArr = function(text) {
+				//没到最大限制，文本直接推入数组
+				if(this.textArr.length != (this.max_num + 1)) {
+					if(this.textArr.indexOf(text) > -1){//检查是否有重复
+						this.tag_text.value = "";
+						return;
+					}
+					if(this.tag_text.value.trim() == ""){
+						return;
+					}
+					this.textArr.push(text);
+					this.rander();
+				}else{//达到最大显示，数组的值逐退1位，覆盖最后一个。新文本插入第一位。
+					console.log(this.max_num)
+					this.textArr.pop();
+					this.textArr.unshift(text);
+					this.rander();
+				}
+			}
+			//渲染数组，显示tag
+			addTag.prototype.rander = function() {
+				console.log(this.textArr)
+				var textContent = "";
+				this.textArr.forEach(function(text) {
+					textContent += "<span class='tag'>"+ text +"</span>";
+				})
+				this.tag_show.innerHTML = textContent;
+				this.tag_text.value = "";
+				this.getdeleteText();
+			}
+			//获得点击的tag文本
+			addTag.prototype.getdeleteText = function() {
+				var tags = this.tag_show.querySelectorAll("span");
+				var that = this;
+				for(var i = 0; i < tags.length; i++) {
+					tags[i].onclick = function() {
+						that.deleteArr(this.innerHTML);
+					}
+				}
+			}
+			//在数组删除对应文本
+			addTag.prototype.deleteArr = function(text){
+				var index = this.textArr.indexOf(text);
+				this.textArr.splice(index,1);
+				this.rander();
+			}
+//			addTag.prototype.inits = function() {//初始化
+//				if(this.hobby_btn){
+//					this.setHobby();
+//				}else{
+//
+//				}
+//			};
+			//实例化构造函数
+			var option = {};
+			option.tag_text = document.querySelector("#tag");
+			option.tag_show = document.querySelector("#tag-show");
+			option.reg = /[\s \W]*/;
+			option.tag_maxnum = 10;
+			option.init = function() {
+					this.onInput();
+					this.tag_text.onkeydown = this.keyEnter.bind(this);//必须这样，才能绑定						
+			}
+//			var tag = new addTag(option);	
+			option.prototype = new addTag(this);
+			option.constructor = option;
+			var tag = new option();
+			tag.init();
+//			var hobbyobj = {
+//				tag_text :document.querySelector("#hobby-tag"),
+//				tag_show : document.querySelector("#hobby-tag-show"),
+//				hobbt_btn : document.querySelector("#hobby-btn"),
+//				reg : /\s+/,
+//				tag_maxnum : 10,
+//				init : function() {
+//					this.setHobby();
+//				}
+//			};
+//			var hobby = new addTag(hobbyobj);
+//			hobby.init();
+		</script>
+	</body>
+</html>

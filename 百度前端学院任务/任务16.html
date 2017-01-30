@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#aqi-table *{
+			margin:5px;
+		}
+	</style>
+</head>
+<body>
+	<div>
+	    <label>城市名称：<input id="aqi-city-input" type="text"></label><br>
+	    <label>空气质量指数：<input id="aqi-value-input" type="text"></label><br>
+	    <button id="add-btn">确认添加</button>
+  	</div>
+  <table id="aqi-table">
+	<tr>
+		<th>城市</th>
+		<th>空气质量</th>
+		<th>操作</th>
+	</tr>
+  </table>
+  <script>
+  /*1，delect 删除object对象数据，
+   *2，中文，英文，整数的正则验证，test()用法
+   *3，临时字符串记录表格，最后统一渲染
+   *4，for in 循环object对象
+   *5，parentNode的应用
+   *6，trim()除去字符串两端空格
+   */
+  	var aqiData = {};
+
+  	/* addBtnHandle
+  	 *获取用户输入，更新数据，并进行页面呈现的更新
+  	 */
+  	function addBtnHandle(){
+  		addAqiData();
+  		renderAqiList();
+  	}
+
+  	/*addAqiData
+  	 *从用户输入中获取并验证数据，并添加到aqiData中
+  	 */
+  	function addAqiData(){
+  		var regChinese = /^[\u0391-\uFFE5]+$/;//中文
+  		var regWord =  /^[a-zA-Z]+$/;//英文字母
+  		var regNum = /^[-+]?\d*$/;//数字
+  		var city_input = document.getElementById('aqi-city-input');
+  		var city = city_input.value.trim();
+  		
+  		var aqi_input = document.getElementById('aqi-value-input');
+  		var aqiNum = parseInt(aqi_input.value.trim());
+  		
+  		if(!regChinese.test(city) && !regWord.test(city)){
+  			alert("城市输入错误");
+  			return false;
+  		}
+  		if(!regNum.test(aqiNum)){
+  			alert("数字输入错误，必须为整数");
+  			return false;
+  		}
+  		city_input.value = "";
+  		aqi_input.value = "";
+  		aqiData[city] = aqiNum;
+  	}
+
+  	/*renderAqiList
+  	 *渲染aqi-table表格
+  	 */
+  	function renderAqiList() {
+  		var list = document.getElementById('aqi-table');
+  		list.removeChild(list.childNodes[0]);
+  		var textContent = "";
+  		var textTH = "<tr><th>城市</th><th>空气质量</th><th>操作</th></tr>";
+  		for(var key in aqiData){
+  			textContent += "<tr><td>"+key+"</td><td>"+aqiData[key]+"</td><td><button>删除</button></td></tr>";
+  		};
+  		list.innerHTML = textTH + textContent;
+  		init();
+  	}
+
+  	/*delBtnHandle
+  	 *点击各个删除按钮的处理逻辑
+  	 *获取哪个城市数据，删除数据，更新表格
+  	 */
+  	function delBtnHandle(tr) {
+  		console.log(tr)
+  		var td = tr.getElementsByTagName('td');
+  		var city = td[0].innerHTML;
+  		var aqiNum = parseInt(td[1].innerHTML);
+  	
+  		for(var key in aqiData){
+  			if(key == city && aqiData[key] == aqiNum){
+  				delete aqiData[key];
+  			}
+  		}
+  		renderAqiList();
+  	}
+
+  	/*
+  	 *点击add-btn时的处理逻辑
+  	 */
+  	function init() {
+  		document.getElementById('add-btn').onclick = addBtnHandle;
+  		var bt = document.getElementById('aqi-table').getElementsByTagName('button');
+  		for(var i=0; i<bt.length; i++){
+  			bt[i].onclick = function(){
+  				delBtnHandle(this.parentNode.parentNode);
+  			};
+  		}
+  		
+  	}
+  	init();
+  </script>
+</body>
+</html>

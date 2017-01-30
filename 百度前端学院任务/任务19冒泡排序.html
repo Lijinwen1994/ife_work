@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#show{
+			margin:0px auto;
+			height: 720px;
+			position: relative;
+
+			min-width: 1000px;
+			padding-left: 5px;
+		}
+		#wrap{
+			width: 1000px;
+			position: absolute;
+			bottom: 0px;
+			
+		}
+		#wrap>div{
+
+			display: inline-block;
+			margin-left: 5px;
+			background-color: red;
+			width: 10px;
+		}
+		#wrap>div:hover{
+			opacity: .5;
+		}
+	</style>
+</head>
+<body>
+        <input id="num-input" type="text">
+        <input type="button" value="左侧入" id="leftPush">
+        <input type="button" value="右侧入" style="margin-right: 25px" id="rightPush">
+        <input type="button" value="左侧出" id="leftPop">
+        <input type="button" value="右侧出" id="rightPop">
+        <input type="button" value="随机生成60组数据" id="createNum">
+        <input type="button" value="打乱" id="upSet">
+        <input type="button" value="排序" id="sortButton">
+        <label > 排序速度:<input type="text" value="150" id="seed"><span>ms</span></label>
+		<div id="show">
+			<div id="wrap"></div>
+		</div>
+        <script>
+
+ 			var $ = function(id){
+ 				return document.getElementById(id);
+ 			}
+        	var queue = {
+        		source:[],//数据源
+        		//获取输入的值并验证
+  
+        		judgeNum:function(inputNum){
+        			if((/^[0-9]+$/).test(inputNum) && inputNum >= 10 && inputNum <= 100){
+    			    	return true;
+	        		}
+        		},
+        		tip:function(){
+        			alert("请输入10~100之间的数字");
+        		},
+        		leftPush:function(){
+        			var input = $("num-input");
+        			var inputNum =input.value;
+        			if(queue.judgeNum(inputNum)){
+        				this.source.unshift(inputNum);
+        				input.value = "";
+        			}else{this.tip();}
+        			
+        		},
+        		rightPush:function() {
+        			var input = $("num-input");
+        			var inputNum =input.value;
+        			if(queue.judgeNum(inputNum)){
+        				this.source.push(inputNum);
+        				input.value = "";        				
+        			}else{this.tip();}
+        		},
+        		leftPop:function(){
+        			this.source.shift();  				
+        		},
+        		rightPop:function(){
+        				this.source.pop();   				
+        		},
+        		createRandomNum:function() {
+	        		for(; this.source.length<=60; ){
+        				this.source.push(Math.floor(Math.random()*90+10));
+		        	}
+		        	rander();
+	        	}
+        	}   
+        	/*渲染图表函数*/     	
+        	function rander(){
+        		var source = queue.source;
+        		console.log(source);
+        		var wrap = $("wrap");
+        		wrap.innerHTML = "";
+        		var chartDiv = document.createElement("div");
+        		source.forEach(function(num){
+        			var div = chartDiv.cloneNode(true);
+        			div.style.height = (num*7) + "px";
+        			wrap.appendChild(div);
+        		})
+        	}
+ 			//获取对象
+        	var leftPush = $("leftPush");
+        	var rightPush = $('rightPush');
+        	var leftPop = $('leftPop');
+        	var rightPop = $("rightPop");
+        	var createNum = $("createNum");
+        	var sortButton = $("sortButton");
+        	var upSet = $("upSet");
+        	//绑定事件
+        	leftPush.onclick = function() {
+        		if(queue.source.length <= 60){
+        			queue.leftPush(); rander()
+        		}else{
+        			alert("数据已到达60个上线")
+        		}
+        		
+        	}
+        	rightPush.onclick = function() {
+        		if(queue.source.length <= 60){
+        			queue.rightPush(); rander()
+        		}else{
+        			alert("数据已到达60个上线")
+        		}
+        	} 
+        	leftPop.onclick = function() {
+        		if(!queue.source.length == 0){
+        			queue.leftPop()
+        			rander();
+        		}else{
+        			alert("数据源已经空了");
+        		}
+        	}
+        	rightPop.onclick = function() {
+        		if(!queue.source.length == 0){
+        			queue.rightPop()
+        			rander();
+        		}else{
+        			alert("数据源已经空了");
+        		}
+        	}
+
+        	//产生60个随机数
+        	createNum.onclick = function() {
+        		queue.createRandomNum();
+        	}
+
+        	//排序
+        	sortButton.onclick = function() {
+        		sortObject.callInterval();
+        		rander();
+        	}
+
+        	upSet.onclick = function() {
+        		sortObject.upSetSource();
+        	}
+
+   			//排序对象
+        	var sortObject = {
+        		sort:function() {
+	        		var Remainder = queue.source.length
+        			for(var k = Remainder; k >= 0; k--){
+        				if(queue.source[k] < queue.source[k-1]){
+        					var tmp;
+        					tmp = queue.source[k];
+        					queue.source[k] = queue.source[k-1];
+        					queue.source[k-1] = tmp;
+        				}
+        			}        			
+	        	},
+	        	callInterval:function() {
+	        		var seed = $("seed").value;
+	        		var  i = 0;
+	        		var a = setInterval(function() {
+	        			sortObject.sort();
+	        			i++;
+	        			rander();
+	        			if(i == 60){
+	        				clearInterval(a);
+	        			}
+	        		},seed) 	        		
+	        	},
+	        	upSetSource:function() {
+	        		queue.source.sort(function() {
+	        			return (0.5 - Math.random());
+	        		})
+	        		rander();
+	        	}
+        	}
+        </script>
+</body>
+</html>
