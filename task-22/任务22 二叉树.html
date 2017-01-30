@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>任务22 二叉树</title>
+		<style>
+			div{
+				display: flex;
+				flex-grow: 1;
+				border:1px solid black;
+				padding: 20px;
+				margin: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="tree" id="A">A
+			<div id="B">B
+				<div id="D">D</div>
+				<div id="E">E</div>
+			</div>
+			<div id="C">C
+				<div id="F">F</div>
+				<div id="G">G</div>
+			</div>
+		</div>
+		<!--<div class="tree">
+			<div>
+				<div></div>
+				<div></div>
+			</div>
+			<div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>-->
+		<button id="prev-btn">前序</button>
+		<button id="middle-btn">中序</button>
+		<button id="last-btn">后序</button>
+		<script type="text/javascript">
+
+
+var btn = document.getElementsByTagName('button'),
+	preBtn = btn[0],
+	inBtn = btn[1],
+	postBtn = btn[2],
+	treeRoot = document.getElementsByClassName('tree')[0],
+	divList = [],
+	timer = null;
+window.onload = function (){
+	preBtn.onclick = function () {
+		reset();
+		preOrder(treeRoot);
+		changeColor();
+	}
+	inBtn.onclick = function () {
+		reset();
+		inOrder(treeRoot);
+		changeColor(); 	
+	}
+	postBtn.onclick = function () {
+		reset();
+		postOrder(treeRoot);
+		changeColor();
+	}
+}
+var count = 0;
+//前序遍历
+function preOrder(node) {
+	if (!(node == null)) {
+		count++
+		console.log(count);	
+		console.log(node)
+		divList.push(node);
+		preOrder(node.firstElementChild);
+		preOrder(node.lastElementChild);
+	}
+}
+
+//中序遍历
+function inOrder(node) {
+	if (!(node == null)) {	count++
+		inOrder(node.firstElementChild);
+		
+		console.log(count);
+		console.log(node)
+		divList.push(node);
+		inOrder(node.lastElementChild);
+	}
+}
+
+//后序遍历
+function postOrder(node) {
+	if (!(node == null)) {
+		count++
+		console.log(count);	
+		postOrder(node.firstElementChild);
+		postOrder(node.lastElementChild);
+		console.log(node)
+		divList.push(node);
+	}
+}
+
+//颜色变化函数
+function changeColor() {
+	var i = 0;
+	console.log(divList)
+	divList[i].style.backgroundColor = 'blue'
+	timer = setInterval(function (argument) {
+		i++;
+//		console.log(divList.length)
+		if (i < divList.length) {
+			divList[i-1].style.backgroundColor = '#fff';
+			divList[i].style.backgroundColor = 'blue';
+		} else {
+			clearInterval(timer);
+			divList[divList.length-1].style.backgroundColor = '#fff';
+		}
+	},500)
+}
+
+//初始化样式
+function reset() {
+	divList = [];
+	clearInterval(timer);
+	var divs = document.getElementsByTagName('div');
+	for (var i = 0; i < divs.length; i++) {
+		divs[i].style.backgroundColor = '#fff';
+	}
+}
+		</script>
+	</body>
+</html>

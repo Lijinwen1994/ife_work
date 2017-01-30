@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ife task9</title>
+	<link href="css/reset.css" rel="stylesheet" type="text/css"></link>
+	<link href="css/index.css" rel="stylesheet" type="text/css"></link>
+</head>
+<body>
+	<div class="header">
+		<h1><img src="img/logo.png" alt="logo"></h1>
+		<div class="headerRight">
+			<form action=""><input type="text" placeholder="你的每一次刷新，都是一个独一无二的网页"></form>
+			<p class="login">登录</p>
+		</div>
+		
+	</div>
+	<div class="container">
+		<div class="siderBar">
+			<div class="user">
+				<div class="userImg"></div>
+				<p class="userName">ABC123</p>
+				<div class="userInfo">
+					<div class="Collection">110<br />收藏</div>
+					<span></span>
+					<div class="fans">313<br />粉丝</div>
+				</div>
+			</div>
+			<ul class="list">
+				<li>
+					<span class="personalReport">个人报表</span>
+					<ul><span>文件一</span></ul>
+					<ul><span class="now">文件二</span>
+						<li><a href="">文档1</a></li>
+						<li><a href="">文档2</a></li>
+					</ul>
+					<ul><span>文件三</span></ul>
+				</li>
+			
+				<li><span class="personalCollection">个人收藏</span></li>
+				<li><span class="myShare">我的分享</span></li>
+				<li><span class="gallery">图库</span></li>
+				<li><span class="growthRecord">成长记录</span></li>
+				<li><span class="countInfo">账户信息</span></li>
+			</ul>
+		</div>	
+		<div class="content">
+			<div class="doc-log"></div>
+			<div class="modles">
+				<!-- 搜索项start -->
+				<div class="search">
+					<form action="">
+						<div class="m-search-1">
+							<label for="search1">查询项</label>
+							<select name="" id="search1">
+								<option value="">第一项</option>
+								<option value="">第二项</option>	
+								<option value="">第三项</option>
+							</select>							
+						</div>
+						<div class="m-search-2">
+							<div >
+								<label for="search2-1">买方</label>
+								<select name="" id="search2-1">
+									<option value="">小A</option>
+									<option value="">小B</option>
+									<option value="">小C</option>
+								</select>
+							</div>
+							<div>
+								<label for="search2-2">卖方</label>
+								<select name="" id="search2-2">
+									<option value="">小D</option>
+									<option value="">小E</option>
+									<option value="">小G</option>
+								</select>							
+							</div>
+								<p class="change">换</p>
+						</div>
+						<div class="m-search-3">
+							<div class="search3-1">
+								<label for="search-date">日期</label>
+								<select name="" id="search-date">
+									<option value="">2016-09-06</option>	
+								</select>	
+								<label for="search-time">总耗时</label>
+								<select name="" id="search-time">
+									<option value="">8天</option>
+									<option value="">6天</option>
+									<option value="">4天</option>
+								</select>
+							</div>
+							<div class="search3-2">
+								<label for="search-peopleNumber">人数</label>
+								<select name="" id="search-peopleNumber">
+									<option value="">10人</option>
+									<option value="">9人</option>
+									<option value="">8人</option>
+								</select>								
+								<label for="search-deal">成交项</label>
+								<select name="" id="search-deal">
+									<option value="">8项</option>
+									<option value="">6项</option>
+									<option value="">4项</option>
+								</select>	
+							
+							</div>	
+						</div>						
+							<button>搜索</button>
+					</form>
+				</div>
+				<!-- 搜索项 end -->
+				<!-- 历史查询 start -->
+				<div class="historyQuery">
+					<div id="queryLeft"></div>
+					<div id="history">
+					内容由JavaScript生成，如你看到这行字，代表你的浏览器已禁用JavaScript，或浏览器版本过低不支持JavaScript
+					</div>
+					<div id="queryRight"></div>
+					<div class="queryButton">历史查询</div>
+				</div>
+				<!-- 历史查询 end -->
+				<!-- 月份统计 start -->
+				<div class="count">
+					<p id="countTitle">201*年*月份统计</p>
+					<div id="countShow">
+					内容由JavaScript生成，如你看到这行字，代表你的浏览器已禁用JavaScript，或浏览器版本过低不支持JavaScript
+					</div>
+				</div>
+				<!-- 月份统计 end -->
+				<!-- 项目 start -->
+				<div class="projectWrap">
+					<div class="projectLeft">
+						<div id="projectLeftTitle">第一组项目</div>
+						<div id="projectTableShow">
+							 <div id="projectTitle"></div>
+							 <div id="projectTable"></div>
+						</div>
+					</div>
+					<div class="projectRight">
+						<div id="projectRightTitle">第一组项目</div>
+						<div id="datialWrap">
+							<div id="materialName"></div>
+							<div class="P2">
+								<div id="price"><h4>价格</h4></div>
+								<div id="leader"><h4>负责人</h4></div>
+							</div>
+							<div class="introduce">
+								<h4>详W细描述</h4>
+								<p>该项目目前负责人是......</p>
+							</div>
+							<div class="Pbuttom">
+								<input type="radio" name="Agreement" id="Agreement">
+								<label for="Agreement">遵守保密协议</label>
+								<input type="button" value="搜索" id="pbutton">
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 项目 end -->
+				<!-- 日历~排行榜 start-->
+				<div class="bottomWrap">
+					<div id="calendar">
+					<div class="calenderTitle">日历</div>
+						<div class="calenderlayout">
+							<div class="dateControl">
+								<div class="yearWrap">
+									<div id="yearShow" class="slt-icon">*年</div>
+									<div id="yearList" class="hideList">JavaScript生成</div>
+								</div>								
+								<span id="dateToLeft"><</span>
+								<div class="monthWrap">
+									<div id="monthShow" class="slt-icon">9月</div>
+									<div id="monthList" class="hideList">9月</div>
+								</div>
+								<span id="dateToRight">></span>
+								<div id="signDate" class="slt-icon">标注日期</div>
+								<div id="comeBakeToday">返回今天</div>
+							</div>
+							<div class="week">
+								<ul>
+									<li>一</li>
+									<li>二</li>
+									<li>三</li>
+									<li>四</li>
+									<li>五</li>
+									<li>六</li>
+									<li>日</li>
+								</ul>
+							</div>
+							<table id="calendarShow"></table>
+						</div>
+					</div>
+					<div class="rankingListWrap">
+						<div class="rankingTitle">汽车行业排行榜</div>
+						<table id="rankingShow">
+							
+						</table> 
+					</div>
+				</div>
+				<!-- 日历~排行榜 end-->
+			</div>
+		</div>
+	</div>
+	
+	<script src="js/historyQuery.js"></script><!--历史查询javascript 文件-->
+	<script src="js/count.js"></script>       <!--统计javascript 文件-->
+	<script src="js/project.js"></script>	  <!--项目javascript 文件-->
+	<script src="js/CTC.js"></script>		  <!--农历javascript 文件-->
+	<script src="js/calendar.js"></script>	  <!--日历查询javascript 文件-->
+
+	<script src="js/rankingList.js"></script>
+</body>
+</html>
