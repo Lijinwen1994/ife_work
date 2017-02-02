@@ -48,8 +48,6 @@
  			var $ = function(id){
  				return document.getElementById(id);
  			}
-
-
         	var queue = {
         		source:[],//数据源
         		//获取输入的值并验证
@@ -163,35 +161,22 @@
 
    			//排序对象
         	var sortObject = {
-                
-        		mergeSort:function(apply(null,queue.source)) {
-                    if(queue.source.length < 0){
-                        return queue.source;
-                    } 
-                    var middle=Math.floor(queue.source.length/2),
-                    left=queue.source.slice(0,middle),
-                    right=queue.source.slice(middle);
-                    merge(mergeSort(left),mergeSort(right));
-                    rander();            	   
+        		sort:function() {
+	        		var Remainder = queue.source.length
+        			for(var k = Remainder; k >= 0; k--){
+        				if(queue.source[k] < queue.source[k-1]){
+        					var tmp;
+        					tmp = queue.source[k];
+        					queue.source[k] = queue.source[k-1];
+        					queue.source[k-1] = tmp;
+        				}
+        			}        			
 	        	},
-                merge:function(left,right){
-                    var result=[];
-                    while(left.length>0 && right.length>0){
-
-                        if(left[0]<right[0]){
-                            result.push(left.shift());
-
-                        } else{
-                            result.push(right.shift());
-                     } 
-                    return result.concat(left).concat(right);               
-                 }
-             },
 	        	callInterval:function() {
 	        		var seed = $("seed").value;
 	        		var  i = 0;
 	        		var a = setInterval(function() {
-	        			sortObject.mergeSort();
+	        			sortObject.sort();
 	        			i++;
 	        			rander();
 	        			if(i == 60){
