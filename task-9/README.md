@@ -14,5 +14,5 @@
  * 排行榜
     * 随机生成的数据，根据书高低排序，数据的显示加入了缓存动画。 <br/>
 
- ##[预览demo](https://lijinwen1994.github.io/ife_work/task-9/ "点击打开查看")
+ ##[预览demo](https://lijinwen1994.github.io/ife_work/task-9/ "点击打开查看 ")
  
