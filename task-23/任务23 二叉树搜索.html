@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div{
+				margin: 2px;
+				padding: 10px;
+				border:1px solid black;
+			}
+			#root div{
+				display: -webkit-flex;
+				flex-grow: 1;
+				-webkit-flex-grow: 1;
+				background-color: #fff;
+			}
+			#root{
+				display: flex;		
+				display: -webkit-flex;	
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="button" value="深度遍历" id="Dbt"/><label >搜索 <input type="text" id="search"/></label><input type="button" value="广度遍历" id="Ebt"/>
+		<div id="root">
+			Super
+			<div>
+				Cat
+				<div>
+					Apple
+					<div>Pear</div>
+					<div>Pig</div>
+					<div>Cola</div>
+					<div>Soccer</div>
+				</div>
+				<div>Phone</div>
+				<div>
+					<div>Book</div>
+					<div>School</div>
+				</div>
+			</div>
+			<div>
+				Note
+				<div>
+					Human
+					<div>Code</div>
+					<div>Operate</div>
+					<div>Man</div>
+				</div>
+				<div>
+					Program
+					<div>
+						Bement
+						<div>Cat</div>
+					</div>
+					<div>Glass</div>
+				</div>
+			</div>
+			<div>Fish</div>
+		</div>
+		<script type="text/javascript">
+			var divList = [],
+			timer = null,
+			flagSearch = true;//判断是否需要查找的flag
+			
+			document.querySelector("#Dbt").onclick = function() {
+				reset();
+				if(document.getElementById("search").value == ""){//判断是否需要查找
+					flagSearch = false;
+				}
+				depthOrder(document.querySelector("#root"))
+				changeColor();
+				console.log(divList)
+			}
+			document.querySelector("#Ebt").onclick = function() {
+				reset();
+				if(document.getElementById("search").value == ""){//判断是否需要查找
+					flagSearch = false;
+				}
+				extentOrder(document.querySelector("#root"))
+				changeColor();
+				console.log(divList)
+			}
+			//递归元素节点储存在divList中
+			var depthOrder = function(node) {
+				divList.push(node);
+				if(node.children){
+					var childrenNode = node.children;
+					for(var i = 0; i < childrenNode.length; i++){
+						depthOrder(childrenNode[i]);
+					}
+				}				
+			}	
+			var extentOrder = function(node) {			
+				if(node.children){
+					var childrenNode = node.children;
+					for(var i = 0; i < childrenNode.length; i++){
+						extentOrder(childrenNode[i]);
+					}
+				}
+				divList.push(node);
+			}	
+			/*改变颜色动画*/
+			var changeColor = function() {
+				var i = 0;
+				timer = setInterval(function() {		
+					divList[i].style.backgroundColor = "blue";
+					//i为0时，i-1不存在，防止出错所以跳过
+					if(i !== 0){
+						divList[i-1].style.backgroundColor = "#fff";		
+					}
+					//获取字符串时，子孙元素的文本信息一同被获取，需要用正则清除子元素文本信息，保留自身文本
+					var thisText = /\w+/.exec(divList[i].innerText);
+					//搜索文本框有内容 &&  搜索文本框的内容与当前遍历文本相同，黄色背景显示，停止定时器
+					if(flagSearch && (document.getElementById("search").value.toLowerCase() == thisText[0].toLowerCase())){
+						divList[i].style.backgroundColor = "yellow";
+						clearInterval(timer)
+					}
+					i++;
+					//遍历完毕
+					if(i == divList.length) {
+						setTimeout('divList[(divList.length-1)].style.backgroundColor = "#fff"',300)//恢复最后一个div的状态
+						clearInterval(timer)
+						return;
+					};	
+					
+				},300)
+			}
+			//初始化
+			var reset = function(){
+				divList = [];
+				clearInterval(timer);
+				for(var i = 0; i < divList.length; i++){
+					divList[i].style.backgroundColor = "#fff";
+				}
+			}
+			
+		</script>
+	</body>
+</html>
