@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div{
+				margin: 2px;
+				padding: 10px;
+				border:1px solid black;
+			}
+			#root div{
+				display: -webkit-flex;
+				flex-grow: 1;
+				-webkit-flex-grow: 1;
+				background-color: #fff;
+			}
+			#root{
+				display: flex;		
+				display: -webkit-flex;	
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="button" value="深度遍历" id="Dbt"/><label >搜索 <input type="text" id="search"/></label><input type="button" value="广度遍历" id="Ebt"/><br/>
+		<input type="text" placeholder="插入节点名" id="inputNodeName"/>
+		<input type="button" name="" id="inputNode" value="插入节点" />
+		<input type="button" name="" id="deleteNode" value="删除节点" />
+		<div id="root">
+			Super
+			<div>
+				Cat
+				<div>
+					Apple
+					<div>Pear</div>
+					<div>Pig</div>
+					<div>Cola</div>
+					<div>Soccer</div>
+				</div>
+				<div>Phone</div>
+				<div>
+					<div>Book</div>
+					<div>School</div>
+				</div>
+			</div>
+			<div>
+				Note
+				<div>
+					Human
+					<div>Code</div>
+					<div>Operate</div>
+					<div>Man</div>
+				</div>
+				<div>
+					Program
+					<div>
+						Bement
+						<div>Cat</div>
+					</div>
+					<div>Glass</div>
+				</div>
+			</div>
+			<div>Fish</div>
+		</div>
+		<script type="text/javascript">
+			var divList = [],//储存全部节点，
+			clickLists = [],//储存全部节点,用于选中
+			timer = null,//定时器储存对象
+			checkedDiv = null;//存选中节点
+			flagSearch = true;//判断是否需要查找的flag
+			
+			//深度遍历按钮绑定
+			document.querySelector("#Dbt").onclick = function() {
+				reset();
+				if(document.getElementById("search").value == ""){//判断是否需要查找
+					flagSearch = false;
+				}
+				depthOrder(document.querySelector("#root"))
+				changeColor();
+				console.log(divList)
+			}
+			
+			//广度遍历按钮绑定
+			document.querySelector("#Ebt").onclick = function() {
+				reset();
+				if(document.getElementById("search").value == ""){//判断是否需要查找
+					flagSearch = false;
+				}
+				extentOrder(document.querySelector("#root"))
+				changeColor();
+				console.log(divList)
+			}
+			
+			//插入节点按钮事件
+			document.querySelector("#inputNode").onclick = function() {
+				var inputName = document.querySelector("#inputNodeName").value;
+				if(inputName == ""){
+					alert("名字不能为空")
+					return;
+				}
+				var inputDiv = document.createElement("div");
+				inputDiv.innerHTML = inputName;
+				checkedDiv.appendChild(inputDiv);//插入节点
+				getList(document.querySelector("#root"));//重新获取节点
+				clickLight();//重新绑定点亮事件
+				document.querySelector("#inputNodeName").value = "";//重置节点名字输入框
+			}
+			
+			//删除节点按钮事件
+			document.querySelector("#deleteNode").onclick = function() {
+				deleteNode();
+			}
+			
+			window.onload = function() {
+				getList(document.querySelector("#root"));
+				clickLight();
+			}
+			
+			//获取div合集，
+			var getList = function(node) {
+				clickLists.push(node);
+				if(node.children){
+					var childrenNode = node.children;
+					for(var i = 0; i < childrenNode.length; i++){
+						getList(childrenNode[i]);
+					}
+				}					
+			}
+			
+			//点击div高亮
+			var clickLight = function() {
+				for(var i = 0; i < clickLists.length; i++) {
+					clickLists[i].onclick = function(event) {
+						clickReset();
+						this.style.backgroundColor = "#999";
+						event.stopPropagation();//阻止冒泡
+						checkedDiv = this;//保存选中的div，以便进行插入/删除节点操作
+					}
+				}
+			}
+			
+//			删除节点
+			var deleteNode = function() {
+				checkedDiv.parentNode.removeChild(checkedDiv);
+			}
+			
+			//递归元素节点储存在divList中
+			var depthOrder = function(node) {
+				divList.push(node);
+				if(node.children){
+					var childrenNode = node.children;
+					for(var i = 0; i < childrenNode.length; i++){
+						depthOrder(childrenNode[i]);
+					}
+				}				
+			}	
+			
+			//广度遍历
+			var extentOrder = function(node) {			
+				if(node.children){
+					var childrenNode = node.children;
+					for(var i = 0; i < childrenNode.length; i++){
+						extentOrder(childrenNode[i]);
+					}
+				}
+				divList.push(node);
+			}	
+			
+			/*遍历改变颜色动画*/
+			var changeColor = function() {
+				var i = 0;
+				timer = setInterval(function() {		
+					divList[i].style.backgroundColor = "blue";
+					//i为0时，i-1不存在，防止出错所以跳过
+					if(i !== 0){
+						divList[i-1].style.backgroundColor = "#fff";		
+					}
+					//获取字符串时，子孙元素的文本信息一同被获取，需要用正则清除子元素文本信息，保留自身文本
+					var thisText = /\w+/.exec(divList[i].innerText);
+					//搜索文本框有内容 &&  搜索文本框的内容与当前遍历文本相同，黄色背景显示，停止定时器
+					if(flagSearch && (document.getElementById("search").value.toLowerCase() == thisText[0].toLowerCase())){
+						divList[i].style.backgroundColor = "yellow";
+						clearInterval(timer)
+					}
+					i++;
+					//遍历完毕
+					if(i == divList.length) {
+						setTimeout('divList[(divList.length-1)].style.backgroundColor = "#fff"',300)//恢复最后一个div的状态
+						clearInterval(timer)
+						return;
+					};	
+					
+				},300)
+			}
+			
+			//遍历初始化
+			var reset = function(){
+				divList = [];
+				clearInterval(timer);
+				for(var i = 0; i < divList.length; i++){
+					divList[i].style.backgroundColor = "#fff";
+				}
+			}
+			
+			//点击时。重置样式
+			var clickReset = function() {
+				for(var i = 0; i < clickLists.length; i++){
+					clickLists[i].style.backgroundColor = "#fff";
+				}				
+			}
+		</script>
+	</body>
+</html>
